@@ -24,25 +24,52 @@ func Action() {
 	// Output:
 }
 
-func ExampleConvert() {
+func ExampleDrawText() {
 	var width uint = 10
-	out, height := convert(10, "Long lorem porem text")
+	out, height := DrawText(10, "Long lorem porem text")
+	err := draw(width, height, out)
+	if err != nil {
+		fmt.Fprintf(os.Stdout, "%v", err)
+		return
+	}
+	// Output:
+	// |Long lorem|
+	// | porem tex|
+	// |t         |
+}
+
+func ExampleDrawBox() {
+	var width uint = 10
+	out, height := DrawBox(10, "Long lorem porem text")
+	err := draw(width, height, out)
+	if err != nil {
+		fmt.Fprintf(os.Stdout, "%v", err)
+		return
+	}
+	// Output:
+	// |**********|
+	// |* Long l *|
+	// |* orem p *|
+	// |* orem t *|
+	// |* ext    *|
+	// |**********|
+}
+
+func draw(width, height uint, out [][]rune) error {
 	if len(out) != int(height) {
-		fmt.Fprintf(os.Stdout,
+		return fmt.Errorf(
 			"height is not same: %d != %d",
 			len(out),
 			height,
 		)
-		return
 	}
 	for row := range out {
 		if len(out[row]) != int(width) {
-			fmt.Fprintf(os.Stdout,
+			return fmt.Errorf(
 				"width is not same: %d != %d",
 				len(out[row]),
 				width,
 			)
-			return
 		}
 		fmt.Fprintf(os.Stdout, "|")
 		for col := range out[row] {
@@ -50,8 +77,5 @@ func ExampleConvert() {
 		}
 		fmt.Fprintf(os.Stdout, "|\n")
 	}
-	// Output:
-	// |Long lorem|
-	// | porem tex|
-	// |t         |
+	return nil
 }

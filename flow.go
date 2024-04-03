@@ -12,7 +12,7 @@ import (
 	"github.com/Konstantin8105/tf"
 )
 
-func convert(width uint, text string) (out [][]rune, height uint) {
+func DrawText(width uint, text string) (out [][]rune, height uint) {
 	width += 1
 	var b tf.Buffer
 	var t tf.TextField
@@ -35,6 +35,25 @@ func convert(width uint, text string) (out [][]rune, height uint) {
 	}
 	out = b
 	height = uint(len(b))
+	return
+}
+
+func DrawBox(width uint, text string) (out [][]rune, height uint) {
+	if width < 4 {
+		return
+	}
+	out, height = DrawText(width-4, text)
+	for row := range out {
+		out[row] = append([]rune{'*',' '}, append(out[row], ' ', '*')...)
+	}
+	out = append(make([][]rune, 1), append(out, make([][]rune, 1)...)...)
+	out[0] = make([]rune, width)
+	out[len(out)-1] = make([]rune, width)
+	for col := range out[0] {
+		out[0][col] = '*'
+		out[len(out)-1][col] = '*'
+	}
+	height += 2
 	return
 }
 

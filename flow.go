@@ -119,6 +119,7 @@ func Ascii(code string) (out string, err error) {
 type Visitor struct{}
 
 func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
+	var width uint = 20
 	if f, ok := node.(*ast.File); ok && f != nil {
 		for _, decl := range f.Decls {
 			fmt.Println(">")
@@ -135,8 +136,31 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 	if e, ok := node.(*ast.ExprStmt); ok && e != nil {
 		v.Visit(e.X)
 	}
+	if i, ok := node.(*ast.IfStmt); ok && i != nil {
+		v.Visit(i.Cond)
+		for _, b := range i.Body.List {
+			v.Visit(b)
+		}
+	}
 	if b, ok := node.(*ast.BasicLit); ok && b != nil {
-		fmt.Println(b.Value)
+		out, _ := DrawBox(width, b.Value)
+		view(out)
+	}
+	if b, ok := node.(*ast.Ident); ok && b != nil {
+		out, _ := DrawIf(width, b.Name)
+		view(out)
+	}
+	if e, ok := node.(*ast.CallExpr); ok && e != nil {
+		v.Visit(e.Fun)
 	}
 	return
+}
+
+func view(out [][]rune) {
+	for row := range out {
+		for col := range out[row] {
+			fmt.Fprintf(os.Stdout, "%s", string(out[row][col]))
+		}
+		fmt.Fprintf(os.Stdout, "\n")
+	}
 }

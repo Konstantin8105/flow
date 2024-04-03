@@ -22,6 +22,23 @@ func Action() {
 	}
 	fmt.Fprintf(os.Stdout, "%s", out)
 	// Output:
+// >
+// ********************
+// * "Step 1"         *
+// ********************
+// ********************
+// * "Step 2"         *
+// ********************
+// IF #################
+// # Ecology          #
+// ####################
+// ********************
+// * "Step 3"         *
+// ********************
+// ********************
+// * "Step 4"         *
+// ********************
+// <
 }
 
 func ExampleDrawText() {
@@ -88,6 +105,8 @@ func draw(width, height uint, out [][]rune) error {
 				width,
 			)
 		}
+	}
+	for row := range out {
 		fmt.Fprintf(os.Stdout, "|")
 		for col := range out[row] {
 			fmt.Fprintf(os.Stdout, "%s", string(out[row][col]))

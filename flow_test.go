@@ -26,7 +26,7 @@ func Action() {
 
 func ExampleDrawText() {
 	var width uint = 10
-	out, height := DrawText(10, "Long lorem porem text")
+	out, height := DrawText(width, "Long lorem porem text")
 	err := draw(width, height, out)
 	if err != nil {
 		fmt.Fprintf(os.Stdout, "%v", err)
@@ -40,7 +40,7 @@ func ExampleDrawText() {
 
 func ExampleDrawBox() {
 	var width uint = 10
-	out, height := DrawBox(10, "Long lorem porem text")
+	out, height := DrawBox(width, "Long lorem porem text")
 	err := draw(width, height, out)
 	if err != nil {
 		fmt.Fprintf(os.Stdout, "%v", err)
@@ -53,6 +53,23 @@ func ExampleDrawBox() {
 	// |* orem t *|
 	// |* ext    *|
 	// |**********|
+}
+
+func ExampleDrawIf() {
+	var width uint = 10
+	out, height := DrawIf(width, "Long lorem porem text")
+	err := draw(width, height, out)
+	if err != nil {
+		fmt.Fprintf(os.Stdout, "%v", err)
+		return
+	}
+	// Output:
+	// |IF #######|
+	// |# Long l #|
+	// |# orem p #|
+	// |# orem t #|
+	// |# ext    #|
+	// |##########|
 }
 
 func draw(width, height uint, out [][]rune) error {

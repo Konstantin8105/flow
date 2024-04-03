@@ -38,22 +38,38 @@ func DrawText(width uint, text string) (out [][]rune, height uint) {
 	return
 }
 
-func DrawBox(width uint, text string) (out [][]rune, height uint) {
+func box(width uint, text string, border rune) (out [][]rune, height uint) {
 	if width < 4 {
-		return
+		line := make([]rune, width)
+		for col := range line {
+			line[col] = border
+		}
+		return [][]rune{line}, 1
 	}
 	out, height = DrawText(width-4, text)
 	for row := range out {
-		out[row] = append([]rune{'*',' '}, append(out[row], ' ', '*')...)
+		out[row] = append([]rune{border, ' '}, append(out[row], ' ', border)...)
 	}
 	out = append(make([][]rune, 1), append(out, make([][]rune, 1)...)...)
 	out[0] = make([]rune, width)
 	out[len(out)-1] = make([]rune, width)
 	for col := range out[0] {
-		out[0][col] = '*'
-		out[len(out)-1][col] = '*'
+		out[0][col] = border
+		out[len(out)-1][col] = border
 	}
 	height += 2
+	return
+}
+
+func DrawBox(width uint, text string) (out [][]rune, height uint) {
+	return box(width, text, rune('*'))
+}
+
+func DrawIf(width uint, text string) (out [][]rune, height uint) {
+	out, height = box(width, text, rune('#'))
+	out[0][0] = 'I'
+	out[0][1] = 'F'
+	out[0][2] = ' '
 	return
 }
 

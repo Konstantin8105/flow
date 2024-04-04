@@ -1,6 +1,6 @@
 
-func If4() {
-	if Find() {
+func If5() {
+	if "sd fasdfa kdjfal ksdjfla;ksdjf;laskdj f;alsdkj fasd fasdf asdf" {
 	} else {
 		"CASE 2"
 		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
@@ -8,12 +8,15 @@ func If4() {
 }
 		
 @@@@@@@@@@@@@@@@@@@@
-@ If4              @
+@ If5              @
 @@@@@@@@@@@@@@@@@@@@
          |          
          |          
 IF #################
-# Find             #
+# sd fasdfa kdjfal #
+#  ksdjfla;ksdjf;l #
+# askdj f;alsdkj f #
+# asd fasdf asdf   #
 ####################
  |          |       
  |          |       
@@ -42,5 +45,5 @@ IF #################
          |          
          |          
 @@@@@@@@@@@@@@@@@@@@
-@ End of If4       @
+@ End of If5       @
 @@@@@@@@@@@@@@@@@@@@

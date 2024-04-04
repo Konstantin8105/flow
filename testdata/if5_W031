@@ -1,0 +1,46 @@
+
+func If5() {
+	if "sd fasdfa kdjfal ksdjfla;ksdjf;laskdj f;alsdkj fasd fasdf asdf" {
+	} else {
+		"CASE 2"
+		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
+	}
+}
+		
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ If5                         @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+              |                
+              |                
+IF ############################
+# sd fasdfa kdjfal ksdjfla;ks #
+# djf;laskdj f;alsdkj fasd fa #
+# sdf asdf                    #
+###############################
+   |               |           
+   |               |           
+::::::::: :::::::::::::::::::::
+: TRUE  : : FALSE             :
+::::::::: :::::::::::::::::::::
+   |               |           
+   |               |           
+   |      :::::::::::::::::::::
+   |      : CASE 2            :
+   |      :::::::::::::::::::::
+   |               |           
+   |               |           
+   |      :::::::::::::::::::::
+   |      : d ldksjf a;ds fds :
+   |      :  dfsdfldkfj a;sld :
+   |      : kfj asdfalskdfj   :
+   |      :::::::::::::::::::::
+   |               |           
+   |               |           
+IF ############################
+# End of if                   #
+###############################
+              |                
+              |                
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ End of If5                  @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

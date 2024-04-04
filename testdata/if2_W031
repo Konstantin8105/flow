@@ -1,0 +1,56 @@
+
+func If2() {
+	if Find() {
+		"CASE 1"
+		"dfs kfja;lsdkfja;slkdfj a;lskdfj a;lskdjf a;lskdj fa;lskdjf asd"
+	} else {
+		"CASE 2"
+		"sdk fjasldkf jsdf lkasjdf ;laskdjf a"
+		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
+	}
+}
+		
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ If2                         @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+              |                
+              |                
+IF ############################
+# Find                        #
+###############################
+      |               |        
+      |               |        
+:::::::::::::: ::::::::::::::::
+: TRUE       : : FALSE        :
+:::::::::::::: ::::::::::::::::
+      |               |        
+      |               |        
+:::::::::::::: ::::::::::::::::
+: CASE 1     : : CASE 2       :
+:::::::::::::: ::::::::::::::::
+      |               |        
+      |               |        
+:::::::::::::: ::::::::::::::::
+: dfs kfja;l : : sdk fjasldkf :
+: sdkfja;slk : :  jsdf lkasjd :
+: dfj a;lskd : : f ;laskdjf a :
+: fj a;lskdj : ::::::::::::::::
+: f a;lskdj  :        |        
+: fa;lskdjf  :        |        
+: asd        : ::::::::::::::::
+:::::::::::::: : d ldksjf a;d :
+      |        : s fds dfsdfl :
+      |        : dkfj a;sldkf :
+      |        : j asdfalskdf :
+      |        : j            :
+      |        ::::::::::::::::
+      |               |        
+      |               |        
+IF ############################
+# End of if                   #
+###############################
+              |                
+              |                
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ End of If2                  @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

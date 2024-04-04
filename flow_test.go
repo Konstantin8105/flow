@@ -118,8 +118,21 @@ func If3() {
 		{
 			name: "if4",
 			code: `
-func If3() {
+func If4() {
 	if Find() {
+	} else {
+		"CASE 2"
+		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
+	}
+}
+		`,
+		},
+		////////
+		{
+			name: "if5",
+			code: `
+func If5() {
+	if "sd fasdfa kdjfal ksdjfla;ksdjf;laskdj f;alsdkj fasd fasdf asdf" {
 	} else {
 		"CASE 2"
 		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
@@ -129,7 +142,7 @@ func If3() {
 		},
 	}
 	for _, tc := range tcs {
-		for _, width := range []uint{5, 10, 15, 20, 40} {
+		for _, width := range []uint{5, 10, 15, 20, 31, 40} {
 			filename := fmt.Sprintf("testdata/%s_W%03d", tc.name, width)
 			t.Run(filename, func(t *testing.T) {
 				debug = testing.Verbose()
@@ -177,12 +190,12 @@ func ExampleDrawBox() {
 		return
 	}
 	// Output:
-	// |**********|
-	// |* Long l *|
-	// |* orem p *|
-	// |* orem t *|
-	// |* ext    *|
-	// |**********|
+	// |::::::::::|
+	// |: Long l :|
+	// |: orem p :|
+	// |: orem t :|
+	// |: ext    :|
+	// |::::::::::|
 }
 
 func ExampleDrawIf() {
@@ -194,7 +207,7 @@ func ExampleDrawIf() {
 		return
 	}
 	// Output:
-	// |##########|
+	// |IF #######|
 	// |# Long l #|
 	// |# orem p #|
 	// |# orem t #|

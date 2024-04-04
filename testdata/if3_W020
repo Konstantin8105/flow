@@ -1,0 +1,52 @@
+
+func If3() {
+	if Find() {
+		"CASE 1"
+		"dfs kfja;lsdkfja;slkdfj a;lskdfj a;lskdjf a;lskdj fa;lskdjf asd"
+	} else {
+		"CASE 2"
+		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
+	}
+}
+		
+@@@@@@@@@@@@@@@@@@@@
+@ If3              @
+@@@@@@@@@@@@@@@@@@@@
+         |          
+         |          
+####################
+# Find             #
+####################
+   |         |     
+   |         |     
+********* *********
+* TRUE  * * FALSE *
+********* *********
+   |         |     
+   |         |     
+********* *********
+* CASE  * * CASE  *
+* 1     * * 2     *
+********* *********
+   |         |     
+   |         |     
+********* *********
+* dfs k * * d ldk *
+* fja;l * * sjf a *
+* sdkfj * * ;ds f *
+* a;slk * * ds df *
+* dfj a * * sdfld *
+* ;lskd * * kfj a *
+* fj a; * * ;sldk *
+* lskdj * * fj as *
+* f a;l * * dfals *
+* skdj  * * kdfj  *
+* fa;ls * *********
+* kdjf  *    |     
+* asd   *    |     
+*********    |     
+   |         |     
+   |         |     
+####################
+# Enf of if        #
+####################

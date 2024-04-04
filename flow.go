@@ -151,8 +151,6 @@ type Visitor struct {
 	buf   bytes.Buffer
 }
 
-var tab uint
-
 func lineLetter(buf io.Writer, width uint, letter rune) {
 	rs := make([]rune, width)
 	for i := range rs {
@@ -176,24 +174,23 @@ func lineEmpty(buf io.Writer, width uint) {
 }
 
 func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
-	var width uint = v.width - tab*3
 	if f, ok := node.(*ast.File); ok && f != nil {
 		for id, decl := range f.Decls {
 			v.Visit(decl)
 			if id != len(f.Decls)-1 {
-				lineEmpty(&v.buf, width)
+				lineEmpty(&v.buf, v.width)
 			}
 			return
 		}
 	}
 	if f, ok := node.(*ast.FuncDecl); ok && f != nil {
-		out, _ := DrawFunc(width, f.Name.Name)
+		out, _ := DrawFunc(v.width, f.Name.Name)
 		view(&v.buf, out)
-		line(&v.buf, width)
+		line(&v.buf, v.width)
 		for i, b := range f.Body.List {
 			v.Visit(b)
 			if i != len(f.Body.List)-1 {
-				line(&v.buf, width)
+				line(&v.buf, v.width)
 			}
 		}
 	}
@@ -201,41 +198,93 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		v.Visit(e.X)
 	}
 	if i, ok := node.(*ast.ForStmt); ok && i != nil {
-		out, _ := DrawIf(width, "FOR")
+		out, _ := DrawIf(v.width, "FOR")
 		view(&v.buf, out)
-		line(&v.buf, width)
-		tab++
+		line(&v.buf, v.width)
 		for _, b := range i.Body.List {
 			v.Visit(b)
-			line(&v.buf, width)
+			line(&v.buf, v.width)
 		}
-		tab--
 		v.Visit(i.Cond)
+	}
+	if block, ok := node.(*ast.BlockStmt); ok {
+		line(&v.buf, v.width)
+		for _, b := range block.List {
+			v.Visit(b)
+			line(&v.buf, v.width)
+		}
+		return
 	}
 	if i, ok := node.(*ast.IfStmt); ok && i != nil {
 		v.Visit(i.Cond)
-		line(&v.buf, width)
-		tab++
-		for _, b := range i.Body.List {
-			v.Visit(b)
-			line(&v.buf, width)
+
+		half := v.width/2 - 1
+
+		block := func(label string, list ast.Stmt) string {
+			var r Visitor
+			r.width = half
+			astLabel := &ast.ExprStmt{X: &ast.BasicLit{Value: label}}
+			if b, ok := list.(*ast.BlockStmt); ok && b != nil {
+				b.List = append([]ast.Stmt{astLabel}, b.List...)
+			}
+			if list == nil {
+				list = &ast.BlockStmt{
+					List: []ast.Stmt{astLabel},
+				}
+			}
+			r.Visit(list)
+			return r.buf.String()
 		}
-		tab--
-		out, _ := DrawIf(width, "Enf of if")
+
+		left := block("TRUE", i.Body)
+		right := block("FALSE", i.Else)
+		v.Merge(left, right)
+
+		out, _ := DrawIf(v.width, "Enf of if")
 		view(&v.buf, out)
 	}
 	if b, ok := node.(*ast.BasicLit); ok && b != nil {
-		out, _ := DrawBox(width, b.Value)
+		out, _ := DrawBox(v.width, b.Value)
 		view(&v.buf, out)
 	}
 	if b, ok := node.(*ast.Ident); ok && b != nil {
-		out, _ := DrawIf(width, b.Name)
+		out, _ := DrawIf(v.width, b.Name)
 		view(&v.buf, out)
 	}
 	if e, ok := node.(*ast.CallExpr); ok && e != nil {
 		v.Visit(e.Fun)
 	}
 	return
+}
+
+func (v *Visitor) Merge(left, right string) {
+	ll := strings.Split(left, "\n")
+	if ll[len(ll)-1] == "" {
+		ll = ll[:len(ll)-1]
+	}
+	wl := len(ll[0])
+	last := ll[len(ll)-1]
+	lr := strings.Split(right, "\n")
+	if lr[len(lr)-1] == "" {
+		lr = lr[:len(lr)-1]
+	}
+	for i := 0; i < len(ll) && i < len(lr); i++ {
+		ll[i] = ll[i] + " " + lr[i]
+	}
+	if len(ll) < len(lr) {
+		rs := make([]rune, wl+1)
+		for i := range rs {
+			rs[i] = ' '
+		}
+		for i := len(ll); i < len(lr); i++ {
+			ll = append(ll, last+" "+lr[i])
+		}
+	} else if len(lr) < len(ll) && 0 < len(lr) {
+		for i := len(lr); i < len(ll); i++ {
+			ll[i] = ll[i] + " " + lr[len(lr)-1]
+		}
+	}
+	v.buf.WriteString(strings.Join(ll, "\n") + "\n")
 }
 
 func view(buf io.Writer, out [][]rune) {

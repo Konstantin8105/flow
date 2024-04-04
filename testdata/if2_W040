@@ -1,0 +1,50 @@
+
+func If2() {
+	if Find() {
+		"CASE 1"
+		"dfs kfja;lsdkfja;slkdfj a;lskdfj a;lskdjf a;lskdj fa;lskdjf asd"
+	} else {
+		"CASE 2"
+		"sdk fjasldkf jsdf lkasjdf ;laskdjf a"
+		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
+	}
+}
+		
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ If2                                  @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                   |                    
+                   |                    
+########################################
+# Find                                 #
+########################################
+        |                   |          
+        |                   |          
+******************* *******************
+* TRUE            * * FALSE           *
+******************* *******************
+        |                   |          
+        |                   |          
+******************* *******************
+* CASE 1          * * CASE 2          *
+******************* *******************
+        |                   |          
+        |                   |          
+******************* *******************
+* dfs kfja;lsdkfj * * sdk fjasldkf js *
+* a;slkdfj a;lskd * * df lkasjdf ;las *
+* fj a;lskdjf a;l * * kdjf a          *
+* skdj fa;lskdjf  * *******************
+* asd             *         |          
+*******************         |          
+        |           *******************
+        |           * d ldksjf a;ds f *
+        |           * ds dfsdfldkfj a *
+        |           * ;sldkfj asdfals *
+        |           * kdfj            *
+        |           *******************
+        |                   |          
+        |                   |          
+########################################
+# Enf of if                            #
+########################################

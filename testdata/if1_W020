@@ -1,0 +1,58 @@
+
+func OnlyIf() {
+	if Find() {
+		"CASE 1"
+		"dfs kfja;lsdkfja;slkdfj a;lskdfj a;lskdjf a;lskdj fa;lskdjf asd"
+		"sd faskdf asdfa dfa"
+	}
+}
+		
+@@@@@@@@@@@@@@@@@@@@
+@ OnlyIf           @
+@@@@@@@@@@@@@@@@@@@@
+         |          
+         |          
+####################
+# Find             #
+####################
+   |         |     
+   |         |     
+********* *********
+* TRUE  * * FALSE *
+********* *********
+   |         |     
+   |         |     
+*********    |     
+* CASE  *    |     
+* 1     *    |     
+*********    |     
+   |         |     
+   |         |     
+*********    |     
+* dfs k *    |     
+* fja;l *    |     
+* sdkfj *    |     
+* a;slk *    |     
+* dfj a *    |     
+* ;lskd *    |     
+* fj a; *    |     
+* lskdj *    |     
+* f a;l *    |     
+* skdj  *    |     
+* fa;ls *    |     
+* kdjf  *    |     
+* asd   *    |     
+*********    |     
+   |         |     
+   |         |     
+*********    |     
+* sd fa *    |     
+* skdf  *    |     
+* asdfa *    |     
+*  dfa  *    |     
+*********    |     
+   |         |     
+   |         |     
+####################
+# Enf of if        #
+####################

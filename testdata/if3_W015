@@ -1,0 +1,73 @@
+
+func If3() {
+	if Find() {
+		"CASE 1"
+		"dfs kfja;lsdkfja;slkdfj a;lskdfj a;lskdjf a;lskdj fa;lskdjf asd"
+	} else {
+		"CASE 2"
+		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
+	}
+}
+		
+@@@@@@@@@@@@@@@
+@ If3         @
+@@@@@@@@@@@@@@@
+      |        
+      |        
+###############
+# Find        #
+###############
+  |      |   
+  |      |   
+****** ******
+* TR * * FA *
+* UE * * LS *
+****** * E  *
+  |    ******
+  |      |   
+******   |   
+* CA * ******
+* SE * * CA *
+*  1 * * SE *
+****** *  2 *
+  |    ******
+  |      |   
+******   |   
+* df * ******
+* s  * * d  *
+* kf * * ld *
+* ja * * ks *
+* ;l * * jf *
+* sd * *  a *
+* kf * * ;d *
+* ja * * s  *
+* ;s * * fd *
+* lk * * s  *
+* df * * df *
+* j  * * sd *
+* a; * * fl *
+* ls * * dk *
+* kd * * fj *
+* fj * *  a *
+*  a * * ;s *
+* ;l * * ld *
+* sk * * kf *
+* dj * * j  *
+* f  * * as *
+* a; * * df *
+* ls * * al *
+* kd * * sk *
+* j  * * df *
+* fa * * j  *
+* ;l * ******
+* sk *   |   
+* dj *   |   
+* f  *   |   
+* as *   |   
+* d  *   |   
+******   |   
+  |      |   
+  |      |   
+###############
+# Enf of if   #
+###############

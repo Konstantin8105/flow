@@ -10,14 +10,21 @@ import (
 )
 
 func Test(t *testing.T) {
-	codes := []string{
+	tcs := []struct {
+		name string
+		code string
+	}{
 		////////
-		`
+		{
+			name: "empty",
+			code: `
 func Empty() {
 }
-		`,
+		`},
 		////////
-		`
+		{
+			name: "simple",
+			code: `
 func Simple() {
 	"1"
 	"2"
@@ -34,26 +41,35 @@ func Simple() {
 	Two` + "`" + `
 }
         `,
+		},
 		////////
-		`
+		{
+			name: "if1",
+			code: `
 func OnlyIf() {
 	if Find() {
 		"CASE 1"
-	} else {
-		"CASE 2"
+		"dfs kfja;lsdkfja;slkdfj a;lskdfj a;lskdjf a;lskdj fa;lskdjf asd"
+		"sd faskdf asdfa dfa"
 	}
 }
 		`,
+		},
 		////////
-		`
+		{
+			name: "for1",
+			code: `
 func OnlyFor() {
 	for Conflict() {
 		"Do some action"
 	}
 }
 		`,
+		},
 		////////
-		`
+		{
+			name: "integration",
+			code: `
 func Action() {
 	"Step 1"
 	"Step 2"
@@ -66,14 +82,58 @@ func Action() {
 	}
 }
        `,
+		},
 		////////
+		{
+			name: "if2",
+			code: `
+func If2() {
+	if Find() {
+		"CASE 1"
+		"dfs kfja;lsdkfja;slkdfj a;lskdfj a;lskdjf a;lskdj fa;lskdjf asd"
+	} else {
+		"CASE 2"
+		"sdk fjasldkf jsdf lkasjdf ;laskdjf a"
+		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
 	}
-	for ic, code := range codes {
+}
+		`,
+		},
+		////////
+		{
+			name: "if3",
+			code: `
+func If3() {
+	if Find() {
+		"CASE 1"
+		"dfs kfja;lsdkfja;slkdfj a;lskdfj a;lskdjf a;lskdj fa;lskdjf asd"
+	} else {
+		"CASE 2"
+		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
+	}
+}
+		`,
+		},
+		////////
+		{
+			name: "if4",
+			code: `
+func If3() {
+	if Find() {
+	} else {
+		"CASE 2"
+		"d ldksjf a;ds fds dfsdfldkfj a;sldkfj asdfalskdfj"
+	}
+}
+		`,
+		},
+	}
+	for _, tc := range tcs {
 		for _, width := range []uint{5, 10, 15, 20, 40} {
-			filename := fmt.Sprintf("testdata/S%03d_W%03d", ic, width)
+			filename := fmt.Sprintf("testdata/%s_W%03d", tc.name, width)
 			t.Run(filename, func(t *testing.T) {
 				debug = testing.Verbose()
-				out, err := Ascii(width, code)
+				out, err := Ascii(width, tc.code)
 				if err != nil {
 					t.Fatalf("Error:\n%s\n", err)
 					return
@@ -85,7 +145,7 @@ func Action() {
 				// 	}
 				// 	fmt.Fprintf(&buf, "\n")
 				// }
-				fmt.Fprintf(&buf, "%s\n%s", code, out)
+				fmt.Fprintf(&buf, "%s\n%s", tc.code, out)
 				compare.Test(t, filename, buf.Bytes())
 				debug = false
 			})

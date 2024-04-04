@@ -68,24 +68,26 @@ func Action() {
        `,
 		////////
 	}
-	for _, width := range []uint{40, 20, 15, 10, 5} {
-		for ic, code := range codes {
-			out, err := Ascii(width, code)
-			if err != nil {
-				t.Fatalf("Error:\n%s\n", err)
-				return
-			}
-			var buf bytes.Buffer
-			// for row := range out {
-			// 	for col := range out[row] {
-			// 		fmt.Fprintf(&buf, "%s", string(out[row][col]))
-			// 	}
-			// 	fmt.Fprintf(&buf, "\n")
-			// }
-			fmt.Fprintf(&buf, "%s\n%s", code, out)
-			filename := fmt.Sprintf("./testdata/S%03d_W%03d", ic, width)
+	for ic, code := range codes {
+		for _, width := range []uint{5, 10, 15, 20, 40} {
+			filename := fmt.Sprintf("testdata/S%03d_W%03d", ic, width)
 			t.Run(filename, func(t *testing.T) {
+				debug = testing.Verbose()
+				out, err := Ascii(width, code)
+				if err != nil {
+					t.Fatalf("Error:\n%s\n", err)
+					return
+				}
+				var buf bytes.Buffer
+				// for row := range out {
+				// 	for col := range out[row] {
+				// 		fmt.Fprintf(&buf, "%s", string(out[row][col]))
+				// 	}
+				// 	fmt.Fprintf(&buf, "\n")
+				// }
+				fmt.Fprintf(&buf, "%s\n%s", code, out)
 				compare.Test(t, filename, buf.Bytes())
+				debug = false
 			})
 		}
 	}

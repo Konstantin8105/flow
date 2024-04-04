@@ -15,9 +15,28 @@ import (
 	"github.com/Konstantin8105/tf"
 )
 
+var debug bool // debug info
+
 func box(width uint, text string, border rune) (out [][]rune, height uint) {
 	{ // cleaning text
 		text = strings.ReplaceAll(text, "\t", "")
+		text = strings.TrimPrefix(text, "\"")
+		text = strings.TrimSuffix(text, "\"")
+		text = strings.TrimPrefix(text, "`")
+		text = strings.TrimSuffix(text, "`")
+		lines := strings.Split(text, "\n")
+		for i := range lines {
+			lines[i] = strings.TrimSpace(lines[i])
+		}
+	again:
+		for i := range lines {
+			if lines[i] != "" {
+				continue
+			}
+			lines = append(lines[:i], lines[i+1:]...)
+			goto again
+		}
+		text = strings.Join(lines, "\n")
 	}
 	if width < 4 {
 		line := make([]rune, width)
@@ -114,12 +133,12 @@ func Ascii(width uint, code string) (out string, err error) {
 	v := Visitor{width: width}
 	ast.Walk(&v, f)
 	out = v.buf.String()
-	// 	{
-	// 		var buf bytes.Buffer
-	// 		ast.Fprint(&buf, fset, f, ast.NotNilFilter)
-	// 		result := buf.String()
-	// 		fmt.Println(result)
-	// 	}
+	if debug {
+		var buf bytes.Buffer
+		ast.Fprint(&buf, fset, f, ast.NotNilFilter)
+		result := buf.String()
+		fmt.Println(result)
+	}
 	return
 }
 
@@ -139,7 +158,8 @@ func line(buf io.Writer, width uint) {
 	if 1 < index {
 		index--
 	}
-	rs[index] = '*'
+	rs[index] = '|'
+	fmt.Fprintf(buf, "%s\n", string(rs))
 	fmt.Fprintf(buf, "%s\n", string(rs))
 }
 

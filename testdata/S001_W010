@@ -17,56 +17,61 @@ func Simple() {
         
 >
 **********
-* "1"    *
+* 1      *
 **********
-    *     
+    |     
+    |     
 **********
-* "2"    *
+* 2      *
 **********
-    *     
+    |     
+    |     
 **********
-* "4345" *
+* 4345   *
 **********
-    *     
+    |     
+    |     
 **********
-* "sdfd  *
-* fsdfsa *
-* d sda  *
-* fad fa *
-* "      *
+* sdfd f *
+* sdfsad *
+*  sda f *
+* ad fa  *
 **********
-    *     
+    |     
+    |     
 **********
-* "dsf a *
-* sdfa;o *
-* ieroi  *
-* t[opri *
-* g fg d *
-* s ddsf *
-*  akjl; *
-* dfk a; *
-* lsdkfa *
-*  lkfg  *
-* jsdfg" *
+* dsf as *
+* dfa;oi *
+* eroi t *
+* [oprig *
+*  fg ds *
+*  ddsf  *
+* akjl;d *
+* fk a;l *
+* sdkfa  *
+* lkfg j *
+* sdfg   *
 **********
-    *     
+    |     
+    |     
 **********
-* "Hello *
-* \nWorl *
-* d"     *
+* Hello\ *
+* nWorld *
 **********
-    *     
+    |     
+    |     
 **********
-* `      *
 * Step   *
 * One    *
-* Two`   *
+* Two    *
 **********
-    *     
+    |     
+    |     
 **********
-* `Step  *
+* Step   *
 * One    *
-* Two`   *
+* Two    *
 **********
-    *     
+    |     
+    |     
 <

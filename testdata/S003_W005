@@ -1,0 +1,28 @@
+
+func OnlyFor() {
+	for Conflict() {
+		"Do some action"
+	}
+}
+		
+>
+#####
+# F #
+# O #
+# R #
+#####
+ *   
+**
+ *   
+#####
+# C #
+# o #
+# n #
+# f #
+# l #
+# i #
+# c #
+# t #
+#####
+ *   
+<

@@ -1,6 +1,10 @@
+github.com/Konstantin8105/compare v0.0.0-20231104201143-5ebae12605c4 h1:KhVzXcWPjsPmQ2+NiXgSHNTyH4h2z+5n5IAayRvlVL8=
+github.com/Konstantin8105/compare v0.0.0-20231104201143-5ebae12605c4/go.mod h1:fUpun9N0uSc9BUqjkF1m5yWEliJK6eijIf3n5+zZDIw=
 github.com/Konstantin8105/tf v0.0.0-20231007135105-ef617777c299 h1:TbBVloxtHXRGYu7WSt767X1mCRoDHP62VWuOIGcvmY4=
 github.com/Konstantin8105/tf v0.0.0-20231007135105-ef617777c299/go.mod h1:ttVpgkqnbjDxpK2ZSVo9MgQ125QXThKPKqO1UJ4I/t0=
 github.com/Konstantin8105/tf v0.0.0-20240403165841-69b9ce80b774 h1:jehGYcdVMFdK1A4bmrJueAkq/Wq4HPZUMXyGij2m0Wo=
 github.com/Konstantin8105/tf v0.0.0-20240403165841-69b9ce80b774/go.mod h1:ttVpgkqnbjDxpK2ZSVo9MgQ125QXThKPKqO1UJ4I/t0=
 github.com/Konstantin8105/tf v0.0.0-20240403170626-5245216e7740 h1:B0bxOj8qk0pdiXqSaE3Bok2N6htbTywTHY+cKppqLh8=
 github.com/Konstantin8105/tf v0.0.0-20240403170626-5245216e7740/go.mod h1:ttVpgkqnbjDxpK2ZSVo9MgQ125QXThKPKqO1UJ4I/t0=
+github.com/olegfedoseev/image-diff v0.0.0-20171116094004-897a4e73dfd6 h1:a/kynVgbdXJQDq3WWTgwL0bHyg4hu4/oIK9UB+Ugvfo=
+github.com/olegfedoseev/image-diff v0.0.0-20171116094004-897a4e73dfd6/go.mod h1:OgMVaRcJ1TgmPHB/MF2YaHOzRxmw6vVG/DquoMhkCiY=

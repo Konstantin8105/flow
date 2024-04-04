@@ -1,0 +1,72 @@
+
+func Simple() {
+	"1"
+	"2"
+	"4345"
+	"sdfd fsdfsad sda fad fa"
+	"dsf asdfa;oieroi t[oprig fg ds ddsf akjl;dfk a;lsdkfa lkfg jsdfg"
+	"Hello\nWorld"
+	`
+	Step
+	One
+	Two`
+	`Step
+	One
+	Two`
+}
+        
+>
+**********
+* "1"    *
+**********
+    *     
+**********
+* "2"    *
+**********
+    *     
+**********
+* "4345" *
+**********
+    *     
+**********
+* "sdfd  *
+* fsdfsa *
+* d sda  *
+* fad fa *
+* "      *
+**********
+    *     
+**********
+* "dsf a *
+* sdfa;o *
+* ieroi  *
+* t[opri *
+* g fg d *
+* s ddsf *
+*  akjl; *
+* dfk a; *
+* lsdkfa *
+*  lkfg  *
+* jsdfg" *
+**********
+    *     
+**********
+* "Hello *
+* \nWorl *
+* d"     *
+**********
+    *     
+**********
+* `      *
+* Step   *
+* One    *
+* Two`   *
+**********
+    *     
+**********
+* `Step  *
+* One    *
+* Two`   *
+**********
+    *     
+<

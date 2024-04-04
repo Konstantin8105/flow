@@ -86,6 +86,10 @@ func DrawText(width uint, text string) (out [][]rune, height uint) {
 	return
 }
 
+func DrawFunc(width uint, text string) (out [][]rune, height uint) {
+	return box(width, text, rune('@'))
+}
+
 func DrawBox(width uint, text string) (out [][]rune, height uint) {
 	return box(width, text, rune('*'))
 }
@@ -149,7 +153,7 @@ type Visitor struct {
 
 var tab uint
 
-func line(buf io.Writer, width uint) {
+func lineLetter(buf io.Writer, width uint, letter rune) {
 	rs := make([]rune, width)
 	for i := range rs {
 		rs[i] = ' '
@@ -158,25 +162,39 @@ func line(buf io.Writer, width uint) {
 	if 1 < index {
 		index--
 	}
-	rs[index] = '|'
+	rs[index] = letter
 	fmt.Fprintf(buf, "%s\n", string(rs))
 	fmt.Fprintf(buf, "%s\n", string(rs))
+}
+
+func line(buf io.Writer, width uint) {
+	lineLetter(buf, width, '|')
+}
+
+func lineEmpty(buf io.Writer, width uint) {
+	lineLetter(buf, width, ' ')
 }
 
 func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 	var width uint = v.width - tab*3
 	if f, ok := node.(*ast.File); ok && f != nil {
-		for _, decl := range f.Decls {
-			fmt.Fprintln(&v.buf, ">")
+		for id, decl := range f.Decls {
 			v.Visit(decl)
-			fmt.Fprintln(&v.buf, "<")
+			if id != len(f.Decls)-1 {
+				lineEmpty(&v.buf, width)
+			}
 			return
 		}
 	}
 	if f, ok := node.(*ast.FuncDecl); ok && f != nil {
-		for _, b := range f.Body.List {
+		out, _ := DrawFunc(width, f.Name.Name)
+		view(&v.buf, out)
+		line(&v.buf, width)
+		for i, b := range f.Body.List {
 			v.Visit(b)
-			line(&v.buf, width)
+			if i != len(f.Body.List)-1 {
+				line(&v.buf, width)
+			}
 		}
 	}
 	if e, ok := node.(*ast.ExprStmt); ok && e != nil {

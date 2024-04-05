@@ -118,7 +118,7 @@ func DrawIf(width uint, text string) (out [][]rune, height uint) {
 func errToOut(width uint, err error) (out string) {
 	rs := []rune(fmt.Sprintf("%v", err))
 	for iter := 0; iter < 1000; iter++ { // avoid infinite
-		if width < len(rs) {
+		if int(width) < len(rs) {
 			out += string(rs[:width]) + "\n"
 			rs = rs[:width]
 		} else {
@@ -129,14 +129,13 @@ func errToOut(width uint, err error) (out string) {
 	return
 }
 
-func Ascii(width uint, code string) (out string) {
+func Ascii(width uint, code string) (out string, err error) {
 	if 1000 < width {
 		width = 1000
 	}
 	// add package
 	code = "package main\n" + code
 	// gofmt code
-	var err error
 	{
 		var dat []byte
 		var filename string

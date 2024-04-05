@@ -258,7 +258,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		leftWidth := 3
 		left := " | "
 		rightWidth := int(v.width) - leftWidth - 1
-		right := block(rightWidth, "FALSE", i.Body)
+		right := block(rightWidth, "TRUE/ITERATE", i.Body)
 		out := v.Merge(left, right)
 		v.buf.WriteString(out)
 		// end of if block

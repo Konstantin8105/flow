@@ -115,7 +115,7 @@ func DrawIf(width uint, text string) (out [][]rune, height uint) {
 	return
 }
 
-func errToOut(width uint, err error) (out string) {
+func ErrToOut(width uint, err error) (out string) {
 	rs := []rune(fmt.Sprintf("%v", err))
 	for iter := 0; iter < 1000; iter++ { // avoid infinite
 		if int(width) < len(rs) {

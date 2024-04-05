@@ -141,23 +141,24 @@ func Ascii(width uint, code string) (out string, err error) {
 		var filename string
 		var file *os.File
 		if file, err = ioutil.TempFile("", "goast"); err != nil {
-			out = errToOut(width, err)
+			out = ErrToOut(width, err)
 			return
 		}
 		if _, err = file.WriteString(code); err != nil {
-			out = errToOut(width, err)
+			out = ErrToOut(width, err)
 			return
 		}
 		filename = file.Name()
 		if err = file.Close(); err != nil {
+			out = ErrToOut(width, err)
 			return
 		}
 		if _, err = exec.Command("gofmt", "-w", filename).Output(); err != nil {
-			out = errToOut(width, err)
+			out = ErrToOut(width, err)
 			return
 		}
 		if dat, err = ioutil.ReadFile(filename); err != nil {
-			out = errToOut(width, err)
+			out = ErrToOut(width, err)
 			return
 		}
 		code = string(dat)
@@ -165,7 +166,7 @@ func Ascii(width uint, code string) (out string, err error) {
 	fset := token.NewFileSet()
 	f, err := parser.ParseFile(fset, "", code, 0)
 	if err != nil {
-		out = errToOut(width, err)
+		out = ErrToOut(width, err)
 		return
 	}
 	v := Visitor{width: width}

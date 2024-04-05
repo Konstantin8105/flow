@@ -115,18 +115,38 @@ func DrawIf(width uint, text string) (out [][]rune, height uint) {
 	return
 }
 
-func Ascii(width uint, code string) (out string, err error) {
+func errToOut(width uint, err error) (out string) {
+	rs := []rune(fmt.Sprintf("%v", err))
+	for iter := 0; iter < 1000; iter++ { // avoid infinite
+		if width < len(rs) {
+			out += string(rs[:width]) + "\n"
+			rs = rs[:width]
+		} else {
+			out += string(rs)
+			break
+		}
+	}
+	return
+}
+
+func Ascii(width uint, code string) (out string) {
+	if 1000 < width {
+		width = 1000
+	}
 	// add package
 	code = "package main\n" + code
 	// gofmt code
+	var err error
 	{
 		var dat []byte
 		var filename string
 		var file *os.File
 		if file, err = ioutil.TempFile("", "goast"); err != nil {
+			out = errToOut(width, err)
 			return
 		}
 		if _, err = file.WriteString(code); err != nil {
+			out = errToOut(width, err)
 			return
 		}
 		filename = file.Name()
@@ -134,9 +154,11 @@ func Ascii(width uint, code string) (out string, err error) {
 			return
 		}
 		if _, err = exec.Command("gofmt", "-w", filename).Output(); err != nil {
+			out = errToOut(width, err)
 			return
 		}
 		if dat, err = ioutil.ReadFile(filename); err != nil {
+			out = errToOut(width, err)
 			return
 		}
 		code = string(dat)
@@ -144,7 +166,7 @@ func Ascii(width uint, code string) (out string, err error) {
 	fset := token.NewFileSet()
 	f, err := parser.ParseFile(fset, "", code, 0)
 	if err != nil {
-		fmt.Println("err = ", err)
+		out = errToOut(width, err)
 		return
 	}
 	v := Visitor{width: width}

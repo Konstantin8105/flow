@@ -140,6 +140,28 @@ func If5() {
 }
 		`,
 		},
+		////////
+		{
+			name: "FuncDoc",
+			code: `
+func f0() {
+}
+
+// one line
+func f1() {
+}
+
+// one line
+// two line
+func f2() {
+}
+
+/* one line
+two line */
+func f3() {
+}
+		`,
+		},
 	}
 	for _, tc := range tcs {
 		for _, width := range []uint{5, 10, 15, 20, 31, 40} {

@@ -179,7 +179,7 @@ func Ascii(width uint, code string) (out string, err error) {
 		code = string(dat)
 	}
 	fset := token.NewFileSet()
-	f, err := parser.ParseFile(fset, "", code, 0)
+	f, err := parser.ParseFile(fset, "", code, parser.ParseComments)
 	if err != nil {
 		err = fmt.Errorf("parse file: %v", err)
 		out = ErrToOut(width, err)
@@ -267,11 +267,12 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 			if id != len(f.Decls)-1 {
 				lineEmpty(&v.buf, v.width)
 			}
-			return
 		}
+		return
 	}
 	if f, ok := node.(*ast.FuncDecl); ok && f != nil {
-		out, _ := DrawFunc(v.width, f.Name.Name)
+		docs := getDocs(f.Doc)
+		out, _ := DrawFunc(v.width, f.Name.Name+"\n"+docs)
 		view(&v.buf, out)
 		line(&v.buf, v.width)
 		for _, b := range f.Body.List {
@@ -375,4 +376,17 @@ func view(buf io.Writer, out [][]rune) {
 		}
 		fmt.Fprintf(buf, "\n")
 	}
+}
+
+func getDocs(d *ast.CommentGroup) (out string) {
+	if d == nil {
+		return
+	}
+	for i := range d.List {
+		out += d.List[i].Text
+		if i != len(d.List)-1 {
+			out += "\n"
+		}
+	}
+	return
 }

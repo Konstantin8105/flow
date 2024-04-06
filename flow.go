@@ -17,7 +17,16 @@ import (
 
 var debug bool // debug info
 
+var (
+	RuneFunc     = rune('@')
+	RuneBox      = rune(':')
+	RuneFor      = rune('*')
+	RuneIf       = rune('#')
+	RuneVertical = '|'
+)
+
 func box(width uint, text string, border rune) (out [][]rune, height uint) {
+	text = strings.ToUpper(text)
 	{ // cleaning text
 		text = strings.ReplaceAll(text, "\t", "")
 		text = strings.TrimPrefix(text, "\"")
@@ -61,6 +70,7 @@ func box(width uint, text string, border rune) (out [][]rune, height uint) {
 }
 
 func DrawText(width uint, text string) (out [][]rune, height uint) {
+	text = strings.ToUpper(text)
 	width += 1
 	var b tf.Buffer
 	var t tf.TextField
@@ -87,15 +97,15 @@ func DrawText(width uint, text string) (out [][]rune, height uint) {
 }
 
 func DrawFunc(width uint, text string) (out [][]rune, height uint) {
-	return box(width, text, rune('@'))
+	return box(width, text, RuneFunc)
 }
 
 func DrawBox(width uint, text string) (out [][]rune, height uint) {
-	return box(width, text, rune(':'))
+	return box(width, text, RuneBox)
 }
 
 func DrawFor(width uint, text string) (out [][]rune, height uint) {
-	out, height = box(width, text, rune('*'))
+	out, height = box(width, text, RuneFor)
 	if 4 < width {
 		out[0][0] = 'F'
 		out[0][1] = 'O'
@@ -106,7 +116,7 @@ func DrawFor(width uint, text string) (out [][]rune, height uint) {
 }
 
 func DrawIf(width uint, text string) (out [][]rune, height uint) {
-	out, height = box(width, text, rune('#'))
+	out, height = box(width, text, RuneIf)
 	if 3 < width {
 		out[0][0] = 'I'
 		out[0][1] = 'F'
@@ -227,7 +237,7 @@ func lineLetter(buf io.Writer, width uint, letter rune) {
 }
 
 func line(buf io.Writer, width uint) {
-	lineLetter(buf, width, '|')
+	lineLetter(buf, width, RuneVertical)
 }
 
 func lineEmpty(buf io.Writer, width uint) {
@@ -276,15 +286,11 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 	}
 	if i, ok := node.(*ast.ForStmt); ok && i != nil {
 		v.DrawNode(i.Cond, DrawFor)
-		// out, _ := DrawIf(v.width, "FOR")
-		// view(&v.buf, out)
-		// v.Visit(i.Body)
-		// v.Visit(i.Cond)
 		if v.width < 10 {
 			return
 		}
 		leftWidth := 3
-		left := " | "
+		left := " " + string(RuneVertical) + " "
 		rightWidth := int(v.width) - leftWidth - 1
 		right := block(rightWidth, "TRUE/ITERATE", i.Body)
 		out := v.Merge(left, right)

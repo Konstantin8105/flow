@@ -16,7 +16,7 @@ func Simple() {
 }
         
 @@@@@@@@@@@@@@@@@@@@
-@ Simple           @
+@ SIMPLE           @
 @@@@@@@@@@@@@@@@@@@@
          |          
          |          
@@ -36,38 +36,38 @@ func Simple() {
          |          
          |          
 ::::::::::::::::::::
-: sdfd fsdfsad sda :
-:  fad fa          :
+: SDFD FSDFSAD SDA :
+:  FAD FA          :
 ::::::::::::::::::::
          |          
          |          
 ::::::::::::::::::::
-: dsf asdfa;oieroi :
-:  t[oprig fg ds d :
-: dsf akjl;dfk a;l :
-: sdkfa lkfg jsdfg :
+: DSF ASDFA;OIEROI :
+:  T[OPRIG FG DS D :
+: DSF AKJL;DFK A;L :
+: SDKFA LKFG JSDFG :
 ::::::::::::::::::::
          |          
          |          
 ::::::::::::::::::::
-: Hello\nWorld     :
+: HELLO\NWORLD     :
 ::::::::::::::::::::
          |          
          |          
 ::::::::::::::::::::
-: Step             :
-: One              :
-: Two              :
+: STEP             :
+: ONE              :
+: TWO              :
 ::::::::::::::::::::
          |          
          |          
 ::::::::::::::::::::
-: Step             :
-: One              :
-: Two              :
+: STEP             :
+: ONE              :
+: TWO              :
 ::::::::::::::::::::
          |          
          |          
 @@@@@@@@@@@@@@@@@@@@
-@ End of Simple    @
+@ END OF SIMPLE    @
 @@@@@@@@@@@@@@@@@@@@

@@ -11,12 +11,12 @@ func If2() {
 }
 		
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@ If2                                  @
+@ IF2                                  @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                    |                    
                    |                    
 IF #####################################
-# Find                                 #
+# FIND                                 #
 ########################################
         |                    |          
         |                    |          
@@ -31,25 +31,25 @@ IF #####################################
         |                    |          
         |                    |          
 ::::::::::::::::::: ::::::::::::::::::::
-: dfs kfja;lsdkfj : : sdk fjasldkf jsd :
-: a;slkdfj a;lskd : : f lkasjdf ;laskd :
-: fj a;lskdjf a;l : : jf a             :
-: skdj fa;lskdjf  : ::::::::::::::::::::
-: asd             :          |          
+: DFS KFJA;LSDKFJ : : SDK FJASLDKF JSD :
+: A;SLKDFJ A;LSKD : : F LKASJDF ;LASKD :
+: FJ A;LSKDJF A;L : : JF A             :
+: SKDJ FA;LSKDJF  : ::::::::::::::::::::
+: ASD             :          |          
 :::::::::::::::::::          |          
         |           ::::::::::::::::::::
-        |           : d ldksjf a;ds fd :
-        |           : s dfsdfldkfj a;s :
-        |           : ldkfj asdfalskdf :
-        |           : j                :
+        |           : D LDKSJF A;DS FD :
+        |           : S DFSDFLDKFJ A;S :
+        |           : LDKFJ ASDFALSKDF :
+        |           : J                :
         |           ::::::::::::::::::::
         |                    |          
         |                    |          
 IF #####################################
-# End of if                            #
+# END OF IF                            #
 ########################################
                    |                    
                    |                    
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@ End of If2                           @
+@ END OF IF2                           @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

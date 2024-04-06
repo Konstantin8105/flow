@@ -8,12 +8,12 @@ func OnlyIf() {
 }
 		
 @@@@@@@@@@@@@@@@@@@@
-@ OnlyIf           @
+@ ONLYIF           @
 @@@@@@@@@@@@@@@@@@@@
          |          
          |          
 IF #################
-# Find             #
+# FIND             #
 ####################
      |         |    
      |         |    
@@ -28,29 +28,29 @@ IF #################
      |         |    
      |         |    
 ::::::::::::   |    
-: dfs kfja :   |    
-: ;lsdkfja :   |    
-: ;slkdfj  :   |    
-: a;lskdfj :   |    
-:  a;lskdj :   |    
-: f a;lskd :   |    
-: j fa;lsk :   |    
-: djf asd  :   |    
+: DFS KFJA :   |    
+: ;LSDKFJA :   |    
+: ;SLKDFJ  :   |    
+: A;LSKDFJ :   |    
+:  A;LSKDJ :   |    
+: F A;LSKD :   |    
+: J FA;LSK :   |    
+: DJF ASD  :   |    
 ::::::::::::   |    
      |         |    
      |         |    
 ::::::::::::   |    
-: sd faskd :   |    
-: f asdfa  :   |    
-: dfa      :   |    
+: SD FASKD :   |    
+: F ASDFA  :   |    
+: DFA      :   |    
 ::::::::::::   |    
      |         |    
      |         |    
 IF #################
-# End of if        #
+# END OF IF        #
 ####################
          |          
          |          
 @@@@@@@@@@@@@@@@@@@@
-@ End of OnlyIf    @
+@ END OF ONLYIF    @
 @@@@@@@@@@@@@@@@@@@@

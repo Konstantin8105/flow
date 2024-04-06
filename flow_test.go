@@ -176,9 +176,9 @@ func ExampleDrawText() {
 		return
 	}
 	// Output:
-	// |Long lorem|
-	// | porem tex|
-	// |t         |
+	// |LONG LOREM|
+	// | POREM TEX|
+	// |T         |
 }
 
 func ExampleDrawBox() {
@@ -191,10 +191,10 @@ func ExampleDrawBox() {
 	}
 	// Output:
 	// |::::::::::|
-	// |: Long l :|
-	// |: orem p :|
-	// |: orem t :|
-	// |: ext    :|
+	// |: LONG L :|
+	// |: OREM P :|
+	// |: OREM T :|
+	// |: EXT    :|
 	// |::::::::::|
 }
 
@@ -208,10 +208,10 @@ func ExampleDrawIf() {
 	}
 	// Output:
 	// |IF #######|
-	// |# Long l #|
-	// |# orem p #|
-	// |# orem t #|
-	// |# ext    #|
+	// |# LONG L #|
+	// |# OREM P #|
+	// |# OREM T #|
+	// |# EXT    #|
 	// |##########|
 }
 

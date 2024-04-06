@@ -10,12 +10,12 @@ func If3() {
 }
 		
 @@@@@@@@@@@@@@@@@@@@
-@ If3              @
+@ IF3              @
 @@@@@@@@@@@@@@@@@@@@
          |          
          |          
 IF #################
-# Find             #
+# FIND             #
 ####################
    |          |     
    |          |     
@@ -30,28 +30,28 @@ IF #################
 :::::::::     |     
    |          |     
    |      ::::::::::
-::::::::: : d ldks :
-: dfs k : : jf a;d :
-: fja;l : : s fds  :
-: sdkfj : : dfsdfl :
-: a;slk : : dkfj a :
-: dfj a : : ;sldkf :
-: ;lskd : : j asdf :
-: fj a; : : alskdf :
-: lskdj : : j      :
-: f a;l : ::::::::::
-: skdj  :     |     
-: fa;ls :     |     
-: kdjf  :     |     
-: asd   :     |     
+::::::::: : D LDKS :
+: DFS K : : JF A;D :
+: FJA;L : : S FDS  :
+: SDKFJ : : DFSDFL :
+: A;SLK : : DKFJ A :
+: DFJ A : : ;SLDKF :
+: ;LSKD : : J ASDF :
+: FJ A; : : ALSKDF :
+: LSKDJ : : J      :
+: F A;L : ::::::::::
+: SKDJ  :     |     
+: FA;LS :     |     
+: KDJF  :     |     
+: ASD   :     |     
 :::::::::     |     
    |          |     
    |          |     
 IF #################
-# End of if        #
+# END OF IF        #
 ####################
          |          
          |          
 @@@@@@@@@@@@@@@@@@@@
-@ End of If3       @
+@ END OF IF3       @
 @@@@@@@@@@@@@@@@@@@@

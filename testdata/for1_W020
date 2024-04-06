@@ -6,12 +6,12 @@ func OnlyFor() {
 }
 		
 @@@@@@@@@@@@@@@@@@@@
-@ OnlyFor          @
+@ ONLYFOR          @
 @@@@@@@@@@@@@@@@@@@@
          |          
          |          
 FOR ****************
-* Conflict         *
+* CONFLICT         *
 ********************
  |         |        
  |         |        
@@ -21,17 +21,17 @@ FOR ****************
  |         |        
  |         |        
  |  ::::::::::::::::
- |  : Do some acti :
- |  : on           :
+ |  : DO SOME ACTI :
+ |  : ON           :
  |  ::::::::::::::::
  |         |        
  |         |        
 FOR ****************
-* End of for or it *
-* erate            *
+* END OF FOR OR IT *
+* ERATE            *
 ********************
          |          
          |          
 @@@@@@@@@@@@@@@@@@@@
-@ End of OnlyFor   @
+@ END OF ONLYFOR   @
 @@@@@@@@@@@@@@@@@@@@

@@ -11,12 +11,12 @@ func If2() {
 }
 		
 @@@@@@@@@@@@@@@
-@ If2         @
+@ IF2         @
 @@@@@@@@@@@@@@@
       |        
       |        
 IF ############
-# Find        #
+# FIND        #
 ###############
   |       |    
   |       |    
@@ -33,47 +33,47 @@ IF ############
 ::::::    |    
   |       |    
   |    ::::::::
-:::::: : sdk  :
-: df : : fjas :
-: s  : : ldkf :
-: kf : :  jsd :
-: ja : : f lk :
-: ;l : : asjd :
-: sd : : f ;l :
-: kf : : askd :
-: ja : : jf a :
-: ;s : ::::::::
-: lk :    |    
-: df :    |    
-: j  : ::::::::
-: a; : : d ld :
-: ls : : ksjf :
-: kd : :  a;d :
-: fj : : s fd :
-:  a : : s df :
-: ;l : : sdfl :
-: sk : : dkfj :
-: dj : :  a;s :
-: f  : : ldkf :
-: a; : : j as :
-: ls : : dfal :
-: kd : : skdf :
-: j  : : j    :
-: fa : ::::::::
-: ;l :    |    
-: sk :    |    
-: dj :    |    
-: f  :    |    
-: as :    |    
-: d  :    |    
+:::::: : SDK  :
+: DF : : FJAS :
+: S  : : LDKF :
+: KF : :  JSD :
+: JA : : F LK :
+: ;L : : ASJD :
+: SD : : F ;L :
+: KF : : ASKD :
+: JA : : JF A :
+: ;S : ::::::::
+: LK :    |    
+: DF :    |    
+: J  : ::::::::
+: A; : : D LD :
+: LS : : KSJF :
+: KD : :  A;D :
+: FJ : : S FD :
+:  A : : S DF :
+: ;L : : SDFL :
+: SK : : DKFJ :
+: DJ : :  A;S :
+: F  : : LDKF :
+: A; : : J AS :
+: LS : : DFAL :
+: KD : : SKDF :
+: J  : : J    :
+: FA : ::::::::
+: ;L :    |    
+: SK :    |    
+: DJ :    |    
+: F  :    |    
+: AS :    |    
+: D  :    |    
 ::::::    |    
   |       |    
   |       |    
 IF ############
-# End of if   #
+# END OF IF   #
 ###############
       |        
       |        
 @@@@@@@@@@@@@@@
-@ End of If2  @
+@ END OF IF2  @
 @@@@@@@@@@@@@@@

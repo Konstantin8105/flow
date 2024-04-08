@@ -311,12 +311,16 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		v.DrawNode(i.Cond, DrawIf)
 		// prepare blocks
 		leftWidth := int(v.width)/2 - 1
-		if i.Else == nil {
-			leftWidth = int(v.width)*2/3 - 1
-		}
-		if len(i.Body.List) == 0 {
-			leftWidth = int(v.width)*1/3 - 1
-		}
+ 		if i.Else == nil {
+ 			rightWidth := min(int(v.width)*1/3, 10)
+ 			if rightWidth < 3 {
+ 				rightWidth = 3
+ 			}
+ 			leftWidth = int(v.width) - rightWidth
+ 		}
+ 		if len(i.Body.List) == 0 {
+ 			leftWidth = min(int(v.width)*1/3, 8)
+ 		}
 		left := block(leftWidth, "TRUE", i.Body)
 		rightWidth := int(v.width) - leftWidth - 1
 		right := block(rightWidth, "FALSE", i.Else)

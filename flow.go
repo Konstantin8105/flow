@@ -325,12 +325,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		v.DrawNode(&ast.BasicLit{Value: "End of switch"}, DrawSwitch)
 	case *ast.CaseClause:
 		for i := range n.List {
-			if b, ok := n.List[i].(*ast.BasicLit); ok {
-				out, _ := DrawIf(v.width, b.Value)
-				view(&v.buf, out)
-			} else {
-				v.Visit(n.List[i])
-			}
+			v.DrawNode(n.List[i], DrawIf)
 		}
 		left := " " + string(RuneVertical) + " "
 		rightWidth := int(v.width) - len([]rune(left))

@@ -22,6 +22,7 @@ var (
 	RuneBox      = rune(':')
 	RuneFor      = rune('*')
 	RuneIf       = rune('#')
+	RuneSwitch   = rune('$')
 	RuneVertical = '|'
 )
 
@@ -111,6 +112,20 @@ func DrawFor(width uint, text string) (out [][]rune, height uint) {
 		out[0][1] = 'O'
 		out[0][2] = 'R'
 		out[0][3] = ' '
+	}
+	return
+}
+
+func DrawSwitch(width uint, text string) (out [][]rune, height uint) {
+	out, height = box(width, text, RuneSwitch)
+	if 7 < width {
+		out[0][0] = 'S'
+		out[0][1] = 'W'
+		out[0][2] = 'I'
+		out[0][3] = 'T'
+		out[0][4] = 'C'
+		out[0][5] = 'H'
+		out[0][6] = ' '
 	}
 	return
 }
@@ -244,11 +259,11 @@ func lineEmpty(buf io.Writer, width uint) {
 	lineLetter(buf, width, ' ')
 }
 
-func block(width int, label string, list ast.Stmt) string {
+func block(width int, label string, list ast.Node) string {
 	var r Visitor
 	r.width = uint(width)
 	astLabel := &ast.ExprStmt{X: &ast.BasicLit{Value: label}}
-	if b, ok := list.(*ast.BlockStmt); ok && b != nil {
+	if b, ok := list.(*ast.BlockStmt); ok && b != nil && label != "" {
 		b.List = append([]ast.Stmt{astLabel}, b.List...)
 	}
 	if list == nil {
@@ -256,89 +271,104 @@ func block(width int, label string, list ast.Stmt) string {
 			List: []ast.Stmt{astLabel},
 		}
 	}
+	// if begin {
+	line(&r.buf, r.width)
+	// }
 	r.Visit(list)
+	// line(&r.buf, r.width)
 	return r.buf.String()
 }
 
 func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
-	if f, ok := node.(*ast.File); ok && f != nil {
-		for id, decl := range f.Decls {
+	switch n := node.(type) {
+	case *ast.File:
+		for id, decl := range n.Decls {
 			v.Visit(decl)
-			if id != len(f.Decls)-1 {
+			if id != len(n.Decls)-1 {
 				lineEmpty(&v.buf, v.width)
 			}
 		}
-		return
-	}
-	if f, ok := node.(*ast.FuncDecl); ok && f != nil {
-		docs := getDocs(f.Doc)
-		out, _ := DrawFunc(v.width, f.Name.Name+"\n"+docs)
+	case *ast.FuncDecl:
+		docs := getDocs(n.Doc)
+		out, _ := DrawFunc(v.width, n.Name.Name+"\n"+docs)
 		view(&v.buf, out)
 		line(&v.buf, v.width)
-		for _, b := range f.Body.List {
-			v.Visit(b)
-			line(&v.buf, v.width)
-		}
-		out, _ = DrawFunc(v.width, fmt.Sprintf("End of %s", f.Name.Name))
+		v.Visit(n.Body)
+		out, _ = DrawFunc(v.width, fmt.Sprintf("End of %s", n.Name.Name))
 		view(&v.buf, out)
-	}
-	if e, ok := node.(*ast.ExprStmt); ok && e != nil {
-		v.Visit(e.X)
-	}
-	if i, ok := node.(*ast.ForStmt); ok && i != nil {
-		v.DrawNode(i.Cond, DrawFor)
+	case *ast.ExprStmt:
+		v.Visit(n.X)
+	case *ast.ForStmt:
+		v.DrawNode(n.Cond, DrawFor)
 		if v.width < 10 {
 			return
 		}
 		leftWidth := 3
 		left := " " + string(RuneVertical) + " "
 		rightWidth := int(v.width) - leftWidth - 1
-		right := block(rightWidth, "TRUE/ITERATE", i.Body)
+		right := block(rightWidth, "TRUE/ITERATE", n.Body)
 		out := v.Merge(left, right)
 		v.buf.WriteString(out)
 		// end of if block
 		v.DrawNode(&ast.BasicLit{Value: "End of for or iterate"}, DrawFor)
-	}
-	if block, ok := node.(*ast.BlockStmt); ok {
-		line(&v.buf, v.width)
-		for _, b := range block.List {
+	case *ast.BlockStmt:
+		for _, b := range n.List {
 			v.Visit(b)
 			line(&v.buf, v.width)
 		}
-		return
-	}
-	if i, ok := node.(*ast.IfStmt); ok && i != nil {
-		v.DrawNode(i.Cond, DrawIf)
+	case *ast.SwitchStmt:
+		v.DrawNode(n.Tag, DrawSwitch)
+		line(&v.buf, v.width)
+		for _, b := range n.Body.List {
+			v.Visit(b)
+		}
+		v.DrawNode(&ast.BasicLit{Value: "End of switch"}, DrawSwitch)
+	case *ast.CaseClause:
+		for i := range n.List {
+			if b, ok := n.List[i].(*ast.BasicLit); ok {
+				out, _ := DrawIf(v.width, b.Value)
+				view(&v.buf, out)
+			} else {
+				v.Visit(n.List[i])
+			}
+		}
+		left := " " + string(RuneVertical) + " "
+		rightWidth := int(v.width) - len([]rune(left))
+		right := block(rightWidth, "", &ast.BlockStmt{List: n.Body})
+		out := v.Merge(left, right)
+		v.buf.WriteString(out)
+	case *ast.IfStmt:
+		v.DrawNode(n.Cond, DrawIf)
 		// prepare blocks
 		leftWidth := int(v.width)/2 - 1
- 		if i.Else == nil {
- 			rightWidth := min(int(v.width)*1/3, 10)
- 			if rightWidth < 3 {
- 				rightWidth = 3
- 			}
- 			leftWidth = int(v.width) - rightWidth
- 		}
- 		if len(i.Body.List) == 0 {
- 			leftWidth = min(int(v.width)*1/3, 8)
- 		}
-		left := block(leftWidth, "TRUE", i.Body)
+		if n.Else == nil {
+			rightWidth := min(int(v.width)*1/3, 10)
+			if rightWidth < 3 {
+				rightWidth = 3
+			}
+			leftWidth = int(v.width) - rightWidth
+		}
+		if len(n.Body.List) == 0 {
+			leftWidth = min(int(v.width)*1/3, 8)
+		}
+		left := block(leftWidth, "TRUE", n.Body)
 		rightWidth := int(v.width) - leftWidth - 1
-		right := block(rightWidth, "FALSE", i.Else)
+		right := block(rightWidth, "FALSE", n.Else)
 		out := v.Merge(left, right)
 		v.buf.WriteString(out)
 		// end of if block
 		v.DrawNode(&ast.BasicLit{Value: "End of if"}, DrawIf)
-	}
-	if b, ok := node.(*ast.BasicLit); ok && b != nil {
-		out, _ := DrawBox(v.width, b.Value)
+	case *ast.BasicLit:
+		out, _ := DrawBox(v.width, n.Value)
 		view(&v.buf, out)
-	}
-	if b, ok := node.(*ast.Ident); ok && b != nil {
-		out, _ := DrawBox(v.width, b.Name)
+	case *ast.Ident:
+		out, _ := DrawBox(v.width, n.Name)
 		view(&v.buf, out)
-	}
-	if e, ok := node.(*ast.CallExpr); ok && e != nil {
-		v.Visit(e.Fun)
+	case *ast.CallExpr:
+		v.Visit(n.Fun)
+	default:
+		out, _ := DrawBox(v.width, fmt.Sprintf("UNDEFINED: %T", n))
+		view(&v.buf, out)
 	}
 	return
 }

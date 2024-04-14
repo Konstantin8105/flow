@@ -162,6 +162,24 @@ func f3() {
 }
 		`,
 		},
+		////////
+		{
+			name: "switch01",
+			code: `
+func switch01() {
+	switch "General note" {
+	case "State 1":
+		"SQ1"
+	case "State 2":
+		"SW1"
+		"SW2"
+	case "State 3":
+		"SR1"
+	}
+}
+		`,
+		},
+		////////
 	}
 	for _, tc := range tcs {
 		for _, width := range []uint{5, 10, 15, 20, 31, 40} {

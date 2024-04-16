@@ -324,8 +324,22 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		}
 		v.DrawNode(&ast.BasicLit{Value: "End of switch"}, DrawSwitch)
 	case *ast.CaseClause:
+		//	if len(n.List) == 1 && len(n.Body) == 1 {
+		//		leftWidth := uint(v.width)/2
+		//		rightWidth := uint(v.width)-leftWidth -1
+		//		left:= Visitor{width : leftWidth}
+		//		left.Visit(n.List[0])
+		//		right:= Visitor{width : rightWidth}
+		//		right.Visit(&ast.BlockStmt{List: n.Body})
+		//		out := v.Merge(left.buf.String(), right.buf.String())
+		//		v.buf.WriteString(out)
+		//		break
+		//	}
 		for i := range n.List {
 			v.DrawNode(n.List[i], DrawIf)
+		}
+		if len(n.List) == 0 {
+			v.DrawNode(&ast.BasicLit{Value: "Default case of switch"}, DrawIf)
 		}
 		left := " " + string(RuneVertical) + " "
 		rightWidth := int(v.width) - len([]rune(left))

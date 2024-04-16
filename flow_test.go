@@ -175,6 +175,8 @@ func switch01() {
 		"SW2"
 	case "State 3":
 		"SR1"
+	default:
+		"DF1"
 	}
 }
 		`,

@@ -248,7 +248,7 @@ func lineLetter(buf io.Writer, width uint, letter rune) {
 	}
 	rs[index] = letter
 	fmt.Fprintf(buf, "%s\n", string(rs))
-	fmt.Fprintf(buf, "%s\n", string(rs))
+	// fmt.Fprintf(buf, "%s\n", string(rs))
 }
 
 func line(buf io.Writer, width uint) {

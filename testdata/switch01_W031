@@ -10,6 +10,8 @@ func switch01() {
 		"SR1"
 	case "State 4":
 		"sdfsd fkjsdlk fjasdlk fjdslkf jasd;lkfj as;dlkf jasdl;fk ja;sdlkfj asdf asdf asdfasd"
+	case "State 5":
+		"sdfsd fkjsdlk fs"
 	case "df seroirpwoer iwqepori qw[eori q[pweoirq[eoir q[wepor iqwe":
 		"SD"
 	default:
@@ -54,6 +56,11 @@ IF ############ :::::::::::::::
  |              : K JA;SDLKFJ :
  |              :  ASDF ASDF  :
  |              : ASDFASD     :
+ |              :::::::::::::::
+ |                             
+IF ############ :::::::::::::::
+# STATE 5     # : SDFSD FKJSD :
+############### : LK FS       :
  |              :::::::::::::::
  |                             
 IF ############ :::::::::::::::

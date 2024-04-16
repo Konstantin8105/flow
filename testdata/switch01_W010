@@ -10,6 +10,8 @@ func switch01() {
 		"SR1"
 	case "State 4":
 		"sdfsd fkjsdlk fjasdlk fjdslkf jasd;lkfj as;dlkf jasdl;fk ja;sdlkfj asdf asdf asdfasd"
+	case "State 5":
+		"sdfsd fkjsdlk fs"
 	case "df seroirpwoer iwqepori qw[eori q[pweoirq[eoir q[wepor iqwe":
 		"SD"
 	default:
@@ -29,14 +31,14 @@ $$$$$$$$$$
     |     
 IF ## ::::
 # S # ::::
-# T #     
-# A #     
-# T #     
-# E #     
-#   #     
-# 1 #     
-#####     
- |        
+# T #      
+# A #      
+# T #      
+# E #      
+#   #      
+# 1 #      
+#####      
+ |         
 IF #######
 # STATE  #
 # 2      #
@@ -54,86 +56,96 @@ IF #######
  |    |   
 IF ## ::::
 # S # ::::
-# T #     
-# A #     
-# T #     
-# E #     
-#   #     
-# 3 #     
-#####     
- |        
+# T #      
+# A #      
+# T #      
+# E #      
+#   #      
+# 3 #      
+#####      
+ |         
 IF ## ::::
 # S # ::::
-# T #     
-# A #     
-# T #     
-# E #     
-#   #     
-# 4 #     
-#####     
- |        
+# T #      
+# A #      
+# T #      
+# E #      
+#   #      
+# 4 #      
+#####      
+ |         
+IF ## ::::
+# S # ::::
+# T #      
+# A #      
+# T #      
+# E #      
+#   #      
+# 5 #      
+#####      
+ |         
 IF ## ::::
 # D # ::::
-# F #     
-#   #     
-# S #     
-# E #     
-# R #     
-# O #     
-# I #     
-# R #     
-# P #     
-# W #     
-# O #     
-# E #     
-# R #     
-#   #     
-# I #     
-# W #     
-# Q #     
-# E #     
-# P #     
-# O #     
-# R #     
-# I #     
-#   #     
-# Q #     
-# W #     
-# [ #     
-# E #     
-# O #     
-# R #     
-# I #     
-#   #     
-# Q #     
-# [ #     
-# P #     
-# W #     
-# E #     
-# O #     
-# I #     
-# R #     
-# Q #     
-# [ #     
-# E #     
-# O #     
-# I #     
-# R #     
-#   #     
-# Q #     
-# [ #     
-# W #     
-# E #     
-# P #     
-# O #     
-# R #     
-#   #     
-# I #     
-# Q #     
-# W #     
-# E #     
-#####     
- |        
+# F #      
+#   #      
+# S #      
+# E #      
+# R #      
+# O #      
+# I #      
+# R #      
+# P #      
+# W #      
+# O #      
+# E #      
+# R #      
+#   #      
+# I #      
+# W #      
+# Q #      
+# E #      
+# P #      
+# O #      
+# R #      
+# I #      
+#   #      
+# Q #      
+# W #      
+# [ #      
+# E #      
+# O #      
+# R #      
+# I #      
+#   #      
+# Q #      
+# [ #      
+# P #      
+# W #      
+# E #      
+# O #      
+# I #      
+# R #      
+# Q #      
+# [ #      
+# E #      
+# O #      
+# I #      
+# R #      
+#   #      
+# Q #      
+# [ #      
+# W #      
+# E #      
+# P #      
+# O #      
+# R #      
+#   #      
+# I #      
+# Q #      
+# W #      
+# E #      
+#####      
+ |         
 IF #######
 # DEFAUL #
 # T CASE #

@@ -10,6 +10,8 @@ func switch01() {
 		"SR1"
 	case "State 4":
 		"sdfsd fkjsdlk fjasdlk fjdslkf jasd;lkfj as;dlkf jasdl;fk ja;sdlkfj asdf asdf asdfasd"
+	case "State 5":
+		"sdfsd fkjsdlk fs"
 	case "df seroirpwoer iwqepori qw[eori q[pweoirq[eoir q[wepor iqwe":
 		"SD"
 	default:
@@ -28,7 +30,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 IF ################# :::::::::::::::::::
 # STATE 1          # : SQ1             :
 #################### :::::::::::::::::::
- |                                      
+ |                                       
 IF #####################################
 # STATE 2                              #
 ########################################
@@ -44,7 +46,7 @@ IF #####################################
 IF ################# :::::::::::::::::::
 # STATE 3          # : SR1             :
 #################### :::::::::::::::::::
- |                                      
+ |                                       
 IF ################# :::::::::::::::::::
 # STATE 4          # : SDFSD FKJSDLK F :
 #################### : JASDLK FJDSLKF  :
@@ -53,14 +55,19 @@ IF ################# :::::::::::::::::::
  |                   : SDLKFJ ASDF ASD :
  |                   : F ASDFASD       :
  |                   :::::::::::::::::::
- |                                      
+ |                                       
+IF ################# :::::::::::::::::::
+# STATE 5          # : SDFSD FKJSDLK F :
+#################### : S               :
+ |                   :::::::::::::::::::
+ |                                       
 IF ################# :::::::::::::::::::
 # DF SEROIRPWOER I # : SD              :
 # WQEPORI QW[EORI  # :::::::::::::::::::
-# Q[PWEOIRQ[EOIR Q #                    
-# [WEPOR IQWE      #                    
-####################                    
- |                                      
+# Q[PWEOIRQ[EOIR Q #                     
+# [WEPOR IQWE      #                     
+####################                     
+ |                                       
 IF #####################################
 # DEFAULT CASE OF SWITCH               #
 ########################################

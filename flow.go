@@ -338,23 +338,22 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 				for i :=range rs {
 					rs[i] = ' '
 				}
-				rs[1] = RuneBox //  Vertical
+				rs[1] = RuneVertical
 				rs[len(rs)-1] = '\n'
-				left.buf.WriteString(string(rs))
+				fmt.Fprintf(&left.buf, string(rs))
 			}
 			right := Visitor{width: rightWidth}
 			right.DrawNode(n.Body[0], DrawBox)
-			out := v.Merge(left.buf.String(), right.buf.String())
-			v.buf.WriteString(out)
-			if strings.Count(left.buf.String(),"\n")  < strings.Count(right.buf.String(),"\n") + 1{
-				rs := make([]rune, v.width+1)
+			{
+				rs := make([]rune, leftWidth+1)
 				for i :=range rs {
 					rs[i] = ' '
 				}
-				rs[1] = RuneVertical
 				rs[len(rs)-1] = '\n'
-				v.buf.WriteString(string(rs))
+				fmt.Fprintf(&right.buf, string(rs))
 			}
+			out := v.Merge(left.buf.String(), right.buf.String())
+			v.buf.WriteString(out)
 			break
 		}
 		for i := range n.List {

@@ -29,7 +29,7 @@ IF ####### :::::::::
 # STATE  # : SQ1   :
 # 1      # :::::::::
 ##########          
- |                 
+ |                  
 IF #################
 # STATE 2          #
 ####################
@@ -46,26 +46,26 @@ IF ####### :::::::::
 # STATE  # : SR1   :
 # 3      # :::::::::
 ##########          
- |                 
+ |                  
 IF ####### :::::::::
 # STATE  # : SDFSD :
 # 4      # :  FKJS :
 ########## : DLK F :
- |        : JASDL :
- |        : K FJD :
- |        : SLKF  :
- |        : JASD; :
- |        : LKFJ  :
- |        : AS;DL :
- |        : KF JA :
- |        : SDL;F :
- |        : K JA; :
- |        : SDLKF :
- |        : J ASD :
- |        : F ASD :
- |        : F ASD :
- |        : FASD  :
- |        :::::::::
+ |         : JASDL :
+ |         : K FJD :
+ |         : SLKF  :
+ |         : JASD; :
+ |         : LKFJ  :
+ |         : AS;DL :
+ |         : KF JA :
+ |         : SDL;F :
+ |         : K JA; :
+ |         : SDLKF :
+ |         : J ASD :
+ |         : F ASD :
+ |         : F ASD :
+ |         : FASD  :
+ |         :::::::::
  |                  
 IF ####### :::::::::
 # DF SER # : SD    :
@@ -79,7 +79,7 @@ IF ####### :::::::::
 # [WEPOR #          
 #  IQWE  #          
 ##########          
- |                 
+ |                  
 IF #################
 # DEFAULT CASE OF  #
 # SWITCH           #

@@ -334,7 +334,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 			left := Visitor{width: leftWidth}
 			left.DrawNode(n.List[0], DrawIf)
 			{
-				rs := make([]rune, leftWidth)
+				rs := make([]rune, leftWidth+1)
 				for i :=range rs {
 					rs[i] = ' '
 				}

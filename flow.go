@@ -338,7 +338,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 				for i :=range rs {
 					rs[i] = ' '
 				}
-				rs[1] = RuneVertical
+				rs[1] = RuneBox //  Vertical
 				rs[len(rs)-1] = '\n'
 				left.buf.WriteString(string(rs))
 			}

@@ -328,18 +328,35 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		}
 		v.DrawNode(&ast.BasicLit{Value: "End of switch"}, DrawSwitch)
 	case *ast.CaseClause:
-		// if len(n.List) == 1 && len(n.Body) == 1 {
-		// 	leftWidth := uint(v.width) / 2
-		// 	rightWidth := uint(v.width) - leftWidth - 1
-		// 	left := Visitor{width: leftWidth}
-		// 	left.DrawNode(n.List[0], DrawIf)
-		// 	right := Visitor{width: rightWidth}
-		// 	right.DrawNode(n.Body[0], DrawBox)
-		// 	out := v.Merge(left.buf.String(), right.buf.String())
-		// 	v.buf.WriteString(out)
-		// 	line(&v.buf, v.width)
-		// 	break
-		// }
+		if len(n.List) == 1 && len(n.Body) == 1 {
+			leftWidth := uint(v.width) / 2
+			rightWidth := uint(v.width) - leftWidth - 1
+			left := Visitor{width: leftWidth}
+			left.DrawNode(n.List[0], DrawIf)
+			{
+				rs := make([]rune, leftWidth)
+				for i :=range rs {
+					rs[i] = ' '
+				}
+				rs[1] = RuneVertical
+				rs[len(rs)-1] = '\n'
+				left.buf.WriteString(string(rs))
+			}
+			right := Visitor{width: rightWidth}
+			right.DrawNode(n.Body[0], DrawBox)
+			out := v.Merge(left.buf.String(), right.buf.String())
+			v.buf.WriteString(out)
+			if strings.Count(left.buf.String(),"\n")  < strings.Count(right.buf.String(),"\n") + 1{
+				rs := make([]rune, v.width+1)
+				for i :=range rs {
+					rs[i] = ' '
+				}
+				rs[1] = RuneVertical
+				rs[len(rs)-1] = '\n'
+				v.buf.WriteString(string(rs))
+			}
+			break
+		}
 		for i := range n.List {
 			v.DrawNode(n.List[i], DrawIf)
 		}
@@ -347,7 +364,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 			v.DrawNode(&ast.BasicLit{Value: "Default case of switch"}, DrawIf)
 		}
 		left := " " + string(RuneVertical) + " "
-		rightWidth := int(v.width) - len([]rune(left))-1
+		rightWidth := int(v.width) - len([]rune(left)) - 1
 		right := block(rightWidth, "", &ast.BlockStmt{List: n.Body})
 		out := v.Merge(left, right)
 		v.buf.WriteString(out)

@@ -330,7 +330,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 	case *ast.CaseClause:
 		// if len(n.List) == 1 && len(n.Body) == 1 {
 		// 	leftWidth := uint(v.width) / 2
-		// 	rightWidth := uint(v.width) - leftWidth
+		// 	rightWidth := uint(v.width) - leftWidth - 1
 		// 	left := Visitor{width: leftWidth}
 		// 	left.DrawNode(n.List[0], DrawIf)
 		// 	right := Visitor{width: rightWidth}
@@ -347,7 +347,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 			v.DrawNode(&ast.BasicLit{Value: "Default case of switch"}, DrawIf)
 		}
 		left := " " + string(RuneVertical) + " "
-		rightWidth := int(v.width) - len([]rune(left))
+		rightWidth := int(v.width) - len([]rune(left))-1
 		right := block(rightWidth, "", &ast.BlockStmt{List: n.Body})
 		out := v.Merge(left, right)
 		v.buf.WriteString(out)

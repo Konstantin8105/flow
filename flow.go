@@ -218,7 +218,7 @@ type Visitor struct {
 }
 
 func (v *Visitor) DrawNode(node ast.Node, dr func(width uint, text string) (out [][]rune, height uint)) {
-	text := "undefined"
+	text := fmt.Sprintf("undefined in DrawNode: %T", node)
 	if b, ok := node.(*ast.Ident); ok && b != nil {
 		text = b.Name
 	}
@@ -228,6 +228,10 @@ func (v *Visitor) DrawNode(node ast.Node, dr func(width uint, text string) (out 
 	}
 	if b, ok := node.(*ast.BasicLit); ok && b != nil {
 		text = b.Value
+	}
+	if es, ok := node.(*ast.ExprStmt); ok && es != nil {
+		v.DrawNode(es.X, dr)
+		return
 	}
 	out, _ := dr(v.width, text)
 	view(&v.buf, out)
@@ -324,17 +328,18 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		}
 		v.DrawNode(&ast.BasicLit{Value: "End of switch"}, DrawSwitch)
 	case *ast.CaseClause:
-		//	if len(n.List) == 1 && len(n.Body) == 1 {
-		//		leftWidth := uint(v.width)/2
-		//		rightWidth := uint(v.width)-leftWidth -1
-		//		left:= Visitor{width : leftWidth}
-		//		left.Visit(n.List[0])
-		//		right:= Visitor{width : rightWidth}
-		//		right.Visit(&ast.BlockStmt{List: n.Body})
-		//		out := v.Merge(left.buf.String(), right.buf.String())
-		//		v.buf.WriteString(out)
-		//		break
-		//	}
+		// if len(n.List) == 1 && len(n.Body) == 1 {
+		// 	leftWidth := uint(v.width) / 2
+		// 	rightWidth := uint(v.width) - leftWidth
+		// 	left := Visitor{width: leftWidth}
+		// 	left.DrawNode(n.List[0], DrawIf)
+		// 	right := Visitor{width: rightWidth}
+		// 	right.DrawNode(n.Body[0], DrawBox)
+		// 	out := v.Merge(left.buf.String(), right.buf.String())
+		// 	v.buf.WriteString(out)
+		// 	line(&v.buf, v.width)
+		// 	break
+		// }
 		for i := range n.List {
 			v.DrawNode(n.List[i], DrawIf)
 		}
@@ -388,11 +393,28 @@ func (v *Visitor) Merge(left, right string) string {
 		ll = ll[:len(ll)-1]
 	}
 	wl := len(ll[0])
-	last := ll[len(ll)-1]
 	lr := strings.Split(right, "\n")
 	if lr[len(lr)-1] == "" {
 		lr = lr[:len(lr)-1]
 	}
+	// last lines
+	lastLeft := ll[len(ll)-1]
+	if !strings.Contains(lastLeft, string(RuneVertical)) {
+		rs := make([]rune, len([]rune(lastLeft)))
+		for i := range rs {
+			rs[i] = ' '
+		}
+		lastLeft = string(rs)
+	}
+	lastRight := lr[len(lr)-1]
+	if !strings.Contains(lastRight, string(RuneVertical)) {
+		rs := make([]rune, len([]rune(lastRight)))
+		for i := range rs {
+			rs[i] = ' '
+		}
+		lastRight = string(rs)
+	}
+	//
 	for i := 0; i < len(ll) && i < len(lr); i++ {
 		ll[i] = ll[i] + " " + lr[i]
 	}
@@ -402,11 +424,11 @@ func (v *Visitor) Merge(left, right string) string {
 			rs[i] = ' '
 		}
 		for i := len(ll); i < len(lr); i++ {
-			ll = append(ll, last+" "+lr[i])
+			ll = append(ll, lastLeft+" "+lr[i])
 		}
 	} else if len(lr) < len(ll) && 0 < len(lr) {
 		for i := len(lr); i < len(ll); i++ {
-			ll[i] = ll[i] + " " + lr[len(lr)-1]
+			ll[i] = ll[i] + " " + lastRight
 		}
 	}
 	return strings.Join(ll, "\n") + "\n"

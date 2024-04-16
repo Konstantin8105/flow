@@ -175,6 +175,10 @@ func switch01() {
 		"SW2"
 	case "State 3":
 		"SR1"
+	case "State 4":
+		"sdfsd fkjsdlk fjasdlk fjdslkf jasd;lkfj as;dlkf jasdl;fk ja;sdlkfj asdf asdf asdfasd"
+	case "df seroirpwoer iwqepori qw[eori q[pweoirq[eoir q[wepor iqwe":
+		"SD"
 	default:
 		"DF1"
 	}

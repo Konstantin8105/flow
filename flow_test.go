@@ -11,8 +11,9 @@ import (
 
 func Test(t *testing.T) {
 	tcs := []struct {
-		name string
-		code string
+		isGraph bool
+		name    string
+		code    string
 	}{
 		////////
 		{
@@ -188,24 +189,42 @@ func switch01() {
 		`,
 		},
 		////////
+		{
+			name:    "graph1",
+			isGraph: true,
+			code: `
+			"   1" > "  2  " > ` + "`" + `3 "d"f` + "`" + `   < "4" < "5" < "6
+
+			" ` + " " + `
+			`,
+		},
+		////////
+		{
+			name:    "graph2",
+			isGraph: true,
+			code:    ` "1" > `+"`" + `2
+			sd fsd f 
+			` + "`" + ` > "3"`,
+		},
+		////////
 	}
 	for _, tc := range tcs {
 		for _, width := range []uint{5, 10, 15, 20, 31, 40} {
 			filename := fmt.Sprintf("testdata/%s_W%03d", tc.name, width)
 			t.Run(filename, func(t *testing.T) {
 				debug = testing.Verbose()
-				out, err := Ascii(width, tc.code)
+				var out string
+				var err error
+				if tc.isGraph {
+					out, err = Graph(width, tc.code)
+				} else {
+					out, err = Ascii(width, tc.code)
+				}
 				if err != nil {
 					t.Fatalf("Error:\n%s\n", err)
 					return
 				}
 				var buf bytes.Buffer
-				// for row := range out {
-				// 	for col := range out[row] {
-				// 		fmt.Fprintf(&buf, "%s", string(out[row][col]))
-				// 	}
-				// 	fmt.Fprintf(&buf, "\n")
-				// }
 				fmt.Fprintf(&buf, "%s\n%s", tc.code, out)
 				compare.Test(t, filename, buf.Bytes())
 				debug = false

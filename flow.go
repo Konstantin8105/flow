@@ -18,11 +18,13 @@ import (
 var debug bool // debug info
 
 var (
-	RuneFunc     = rune('@')
-	RuneBox      = rune(':')
-	RuneFor      = rune('*')
-	RuneIf       = rune('#')
-	RuneSwitch   = rune('$')
+	RuneFunc     = '@'
+	RuneBox      = ':'
+	RuneFor      = '*'
+	RuneIf       = '#'
+	RuneSwitch   = '$'
+	RuneDown     = 'V'
+	RuneUp       = '^'
 	RuneVertical = '|'
 )
 
@@ -151,6 +153,68 @@ func ErrToOut(width uint, err error) (out string) {
 			break
 		}
 	}
+	return
+}
+
+func Graph(width uint, code string) (out string, err error) {
+	rs := []rune(code)
+	var names []string
+	var inC bool
+	var inT bool
+	var links []bool
+	for i := range rs {
+		if !inT && rs[i] == '"' {
+			if !inC {
+				names = append(names, "")
+			}
+			inC = !inC
+			if inC {
+				continue
+			}
+		}
+		if !inC && rs[i] == '`' {
+			if !inT {
+				names = append(names, "")
+			}
+			inT = !inT
+			if inT {
+				continue
+			}
+		}
+		if inC || inT {
+			names[len(names)-1] += string(rs[i])
+		} else if rs[i] != ' ' && rs[i] != '"' && rs[i] != '`' && !inC && !inT {
+			if rs[i] == '>' {
+				links = append(links, true)
+				continue
+			} else if rs[i] == '<' {
+				links = append(links, false)
+				continue
+			}
+			if debug {
+				fmt.Fprintf(os.Stdout, "%d %s\n", i, string(rs[i]))
+			}
+		}
+	}
+	var buf bytes.Buffer
+	for i := range names {
+		out, _ := DrawBox(width, names[i])
+		view(&buf, out)
+		if i != len(names)-1 {
+			if i == len(links) {
+				err = fmt.Errorf("link error")
+				continue
+			}
+			if links[i] {
+				line(&buf, width)
+				lineLetter(&buf, width, RuneDown)
+			} else {
+				lineLetter(&buf, width, RuneUp)
+				line(&buf, width)
+			}
+		}
+	}
+	out = buf.String()
 	return
 }
 
@@ -335,7 +399,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 			left.DrawNode(n.List[0], DrawIf)
 			{
 				rs := make([]rune, leftWidth+1)
-				for i :=range rs {
+				for i := range rs {
 					rs[i] = ' '
 				}
 				rs[1] = RuneVertical
@@ -346,7 +410,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 			right.DrawNode(n.Body[0], DrawBox)
 			{
 				rs := make([]rune, leftWidth+1)
-				for i :=range rs {
+				for i := range rs {
 					rs[i] = ' '
 				}
 				rs[len(rs)-1] = '\n'

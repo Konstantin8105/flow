@@ -386,7 +386,15 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		}
 	case *ast.SwitchStmt:
 		v.DrawNode(n.Tag, DrawSwitch)
-		line(&v.buf, v.width)
+		{
+			rs := make([]rune, v.width+1)
+			for i := range rs {
+				rs[i] = ' '
+			}
+			rs[1] = RuneVertical
+			rs[len(rs)-1] = '\n'
+			fmt.Fprintf(&v.buf, string(rs))
+		}
 		for _, b := range n.Body.List {
 			v.Visit(b)
 		}
@@ -429,6 +437,11 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		left := " " + string(RuneVertical) + " "
 		rightWidth := int(v.width) - len([]rune(left)) - 1
 		right := block(rightWidth, "", &ast.BlockStmt{List: n.Body})
+		{
+			lines := strings.Split(right, "\n")
+			lines[len(lines)-2]  = strings.Repeat(" ", len(lines[len(lines)-2]))
+			right = strings.Join(lines, "\n")
+		}
 		out := v.Merge(left, right)
 		v.buf.WriteString(out)
 	case *ast.IfStmt:

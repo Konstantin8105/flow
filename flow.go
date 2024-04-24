@@ -428,7 +428,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 				fmt.Fprintf(&left.buf, string(rs))
 			}
 			right := Visitor{width: rightWidth}
-			right.DrawNode(n.Body[0], DrawBox)
+			right.Visit(n.Body[0])
 			{
 				rs := make([]rune, leftWidth+1)
 				for i := range rs {

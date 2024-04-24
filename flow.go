@@ -18,14 +18,15 @@ import (
 var debug bool // debug info
 
 var (
-	RuneFunc     = '@'
-	RuneBox      = ':'
-	RuneFor      = '*'
-	RuneIf       = '#'
-	RuneSwitch   = '$'
-	RuneDown     = 'V'
-	RuneUp       = '^'
-	RuneVertical = '|'
+	RuneFunc         = '@'
+	RuneFuncInternal = '\\'
+	RuneBox          = ':'
+	RuneFor          = '*'
+	RuneIf           = '#'
+	RuneSwitch       = '$'
+	RuneDown         = 'V'
+	RuneUp           = '^'
+	RuneVertical     = '|'
 )
 
 func box(width uint, text string, border rune) (out [][]rune, height uint) {
@@ -101,6 +102,10 @@ func DrawText(width uint, text string) (out [][]rune, height uint) {
 
 func DrawFunc(width uint, text string) (out [][]rune, height uint) {
 	return box(width, text, RuneFunc)
+}
+
+func DrawFuncInternal(width uint, text string) (out [][]rune, height uint) {
+	return box(width, text, RuneFuncInternal)
 }
 
 func DrawBox(width uint, text string) (out [][]rune, height uint) {
@@ -281,22 +286,30 @@ type Visitor struct {
 	buf   bytes.Buffer
 }
 
-func (v *Visitor) DrawNode(node ast.Node, dr func(width uint, text string) (out [][]rune, height uint)) {
+func NodeToString(node ast.Node) string {
 	text := fmt.Sprintf("undefined in DrawNode: %T", node)
-	if b, ok := node.(*ast.Ident); ok && b != nil {
-		text = b.Name
+	switch v := node.(type) {
+	case *ast.Ident:
+		text = v.Name
+	case *ast.BasicLit:
+		text = v.Value
+	case *ast.ExprStmt:
+		text = NodeToString(v.X)
+	case *ast.CallExpr:
+		var lines []string
+		lines = append(lines, NodeToString(v.Fun))
+		for i := range v.Args {
+			lines = append(lines, NodeToString(v.Args[i]))
+		}
+		text = strings.Join(lines, "\n")
 	}
-	if e, ok := node.(*ast.CallExpr); ok && e != nil {
-		v.DrawNode(e.Fun, dr)
-		return
-	}
-	if b, ok := node.(*ast.BasicLit); ok && b != nil {
-		text = b.Value
-	}
-	if es, ok := node.(*ast.ExprStmt); ok && es != nil {
-		v.DrawNode(es.X, dr)
-		return
-	}
+	text = strings.TrimPrefix(text, "\"")
+	text = strings.TrimSuffix(text, "\"")
+	return text
+}
+
+func (v *Visitor) DrawNode(node ast.Node, dr func(width uint, text string) (out [][]rune, height uint)) {
+	text := NodeToString(node)
 	out, _ := dr(v.width, text)
 	view(&v.buf, out)
 }
@@ -439,7 +452,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		right := block(rightWidth, "", &ast.BlockStmt{List: n.Body})
 		{
 			lines := strings.Split(right, "\n")
-			lines[len(lines)-2]  = strings.Repeat(" ", len(lines[len(lines)-2]))
+			lines[len(lines)-2] = strings.Repeat(" ", len(lines[len(lines)-2]))
 			right = strings.Join(lines, "\n")
 		}
 		out := v.Merge(left, right)
@@ -465,17 +478,10 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 		v.buf.WriteString(out)
 		// end of if block
 		v.DrawNode(&ast.BasicLit{Value: "End of if"}, DrawIf)
-	case *ast.BasicLit:
-		out, _ := DrawBox(v.width, n.Value)
-		view(&v.buf, out)
-	case *ast.Ident:
-		out, _ := DrawBox(v.width, n.Name)
-		view(&v.buf, out)
 	case *ast.CallExpr:
-		v.Visit(n.Fun)
+		v.DrawNode(n, DrawFuncInternal)
 	default:
-		out, _ := DrawBox(v.width, fmt.Sprintf("UNDEFINED: %T", n))
-		view(&v.buf, out)
+		v.DrawNode(n, DrawBox)
 	}
 	return
 }

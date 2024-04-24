@@ -207,6 +207,21 @@ func switch01() {
 			` + "`" + ` > "3"`,
 		},
 		////////
+		{
+			name:    "funcs",
+			isGraph: false,
+			code:    `
+func c1() {
+	c2()
+	"a1"
+	c3()
+	"a2"
+	c4()
+	c5()
+	c6("dsfssdfsdfs")
+}`,
+		},
+		////////
 	}
 	for _, tc := range tcs {
 		for _, width := range []uint{5, 10, 15, 20, 31, 40} {

@@ -7,7 +7,6 @@ import (
 	"go/parser"
 	"go/token"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"strings"
@@ -75,7 +74,7 @@ func box(width uint, text string, border rune) (out [][]rune, height uint) {
 
 func DrawText(width uint, text string) (out [][]rune, height uint) {
 	text = strings.ToUpper(text)
-	width += 1
+	width++
 	var b tf.Buffer
 	var t tf.TextField
 	t.SetWidth(width)
@@ -234,7 +233,7 @@ func Ascii(width uint, code string) (out string, err error) {
 		var dat []byte
 		var filename string
 		var file *os.File
-		if file, err = ioutil.TempFile("", "goast"); err != nil {
+		if file, err = os.CreateTemp("", "goast"); err != nil {
 			err = fmt.Errorf("TempFile: %v", err)
 			out = ErrToOut(width, err)
 			return
@@ -255,7 +254,7 @@ func Ascii(width uint, code string) (out string, err error) {
 			out = ErrToOut(width, err)
 			return
 		}
-		if dat, err = ioutil.ReadFile(filename); err != nil {
+		if dat, err = os.ReadFile(filename); err != nil {
 			err = fmt.Errorf("read file: %v", err)
 			out = ErrToOut(width, err)
 			return
@@ -406,7 +405,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 			}
 			rs[1] = RuneVertical
 			rs[len(rs)-1] = '\n'
-			fmt.Fprintf(&v.buf, string(rs))
+			v.buf.WriteString(string(rs))
 		}
 		for _, b := range n.Body.List {
 			v.Visit(b)
@@ -425,7 +424,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 				}
 				rs[1] = RuneVertical
 				rs[len(rs)-1] = '\n'
-				fmt.Fprintf(&left.buf, string(rs))
+				left.buf.WriteString(string(rs))
 			}
 			right := Visitor{width: rightWidth}
 			right.Visit(n.Body[0])
@@ -435,7 +434,7 @@ func (v *Visitor) Visit(node ast.Node) (w ast.Visitor) {
 					rs[i] = ' '
 				}
 				rs[len(rs)-1] = '\n'
-				fmt.Fprintf(&right.buf, string(rs))
+				right.buf.WriteString(string(rs))
 			}
 			out := v.Merge(left.buf.String(), right.buf.String())
 			v.buf.WriteString(out)

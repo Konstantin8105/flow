@@ -209,6 +209,10 @@ func Graph(width uint, code string) (out string, err error) {
 				err = fmt.Errorf("link error")
 				continue
 			}
+			if len(links) <= i {
+				err = fmt.Errorf("len links %d : %d", len(links), i)
+				continue
+			}
 			if links[i] {
 				line(&buf, width)
 				lineLetter(&buf, width, RuneDown)
